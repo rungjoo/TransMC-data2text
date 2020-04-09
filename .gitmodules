@@ -1,0 +1,3 @@
+[submodule "TreeNLG"]
+	path = TreeNLG
+	url = https://github.com/facebookresearch/TreeNLG

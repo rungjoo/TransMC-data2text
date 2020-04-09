@@ -1,0 +1,4 @@
+gen_model/*
+gpt_model/base/*
+gpt_model/large/*
+gpt_model/xlarge/*
