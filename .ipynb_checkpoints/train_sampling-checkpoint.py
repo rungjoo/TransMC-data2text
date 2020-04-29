@@ -44,7 +44,7 @@ class e2eDataset(Dataset):
         for _ in range(len(self.conditions)):
             sample_order.append(k)
             k += 1
-        ran_num = random.sample(sample_order, int(len(self.conditions)*0.1))
+        ran_num = random.sample(sample_order, int(len(self.conditions)*0.3)) # 샘플링 수
         self.conditions_sample = [self.conditions[t] for t in ran_num]
         self.sentences_sample = [self.sentences[t] for t in ran_num]                  
 
@@ -112,7 +112,7 @@ def main():
 
 
 def save_model(iteration):
-    save_path = 'gen_model/base2_sample_10/'+str(iteration)+'/'
+    save_path = 'gen_model/base2_sample_30/'+str(iteration)+'/'
     if not os.path.exists(save_path):
         os.makedirs(save_path)
     torch.save(my_model.state_dict(), save_path+'model')
