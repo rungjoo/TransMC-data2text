@@ -112,7 +112,7 @@ def main():
 
 
 def save_model(iteration):
-    save_path = 'gen_model/base2_sample_30/'+str(iteration)+'/'
+    save_path = 'gen_model/base4_sample_30/'+str(iteration)+'/'
     if not os.path.exists(save_path):
         os.makedirs(save_path)
     torch.save(my_model.state_dict(), save_path+'model')
