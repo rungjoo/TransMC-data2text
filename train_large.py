@@ -92,12 +92,14 @@ def main():
         save_model(epoch+1)
     save_model('final') # final_model     
     save_path = 'gen_model/large2/final/'
+#     save_path = 'gen_model/xlarge/'
     my_model.bert_model.save_pretrained(save_path)
     my_model.tokenizer.save_pretrained(save_path)
         
         
 def save_model(iteration):
     save_path = 'gen_model/large2/'+str(iteration)+'/'
+#     save_path = 'gen_model/xlarge/'+str(iteration)+'/'
     if not os.path.exists(save_path):
         os.makedirs(save_path)
     torch.save(my_model.state_dict(), save_path+'model')

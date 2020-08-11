@@ -36,6 +36,7 @@ class mymodel(nn.Module):
 #         print(condition_token)                            
         
         model_class, tokenizer_class, pretrained_weights = (GPT2Model, GPT2Tokenizer, 'gpt2-large')
+#         model_class, tokenizer_class, pretrained_weights = (GPT2Model, GPT2Tokenizer, 'gpt2-xl')
         self.tokenizer = tokenizer_class.from_pretrained(pretrained_weights)
 
         special_tokens = {'bos_token': '<START>', 'additional_special_tokens': condition_token}

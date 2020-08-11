@@ -1,3 +1,5 @@
+
+
 # -*- coding: utf-8 -*-
 from tqdm import tqdm
 import os
@@ -55,7 +57,7 @@ class e2eDataset(Dataset):
         input_string = condition_string + '<START>' + sen
         input_ids = torch.tensor(self.tokenizer.encode(input_string, add_special_tokens=True))
         
-        label_string = sen + ' <|endoftext|>'
+        label_string = sen + '<|endoftext|>'
         label_ids = torch.tensor(self.tokenizer.encode(label_string, add_special_tokens=True))
 
         return input_ids, label_ids
@@ -102,7 +104,8 @@ def main():
 
 
 def save_model(iteration):
-    save_path = 'gen_model/base_devtrain_5/'+str(iteration)+'/'
+    save_path = 'gen_model/repro/try_1/'+str(iteration)+'/'
+#     save_path = 'gen_model/random_init/'+str(iteration)+'/'
     if not os.path.exists(save_path):
         os.makedirs(save_path)
     torch.save(my_model.state_dict(), save_path+'model')

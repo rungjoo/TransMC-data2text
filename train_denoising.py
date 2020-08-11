@@ -1,3 +1,5 @@
+
+
 # -*- coding: utf-8 -*-
 from tqdm import tqdm
 import os
@@ -9,7 +11,6 @@ my_model = mymodel().cuda()
 my_model.train()
 print('ok')
 
-import random
 import pandas as pd
 from torch.utils.data import Dataset, DataLoader
 class e2eDataset(Dataset):
@@ -37,22 +38,13 @@ class e2eDataset(Dataset):
                 if cond_set[m][:pos] in self.typ_list.keys():
                     self.typ_list[cond_set[m][:pos]].add(cond_set[m][pos+1:-1])
                 else:            
-                    self.typ_list[cond_set[m][:pos]] = {cond_set[m][pos+1:-1]}
-                    
-        k = 0
-        sample_order = []
-        for _ in range(len(self.conditions)):
-            sample_order.append(k)
-            k += 1
-        ran_num = random.sample(sample_order, int(len(self.conditions)*0.3)) # 샘플링 수
-        self.conditions_sample = [self.conditions[t] for t in ran_num]
-        self.sentences_sample = [self.sentences[t] for t in ran_num]                  
+                    self.typ_list[cond_set[m][:pos]] = {cond_set[m][pos+1:-1]}        
 
     def __len__(self):
-        return len(self.conditions_sample)
+        return len(self.conditions)
 
     def __getitem__(self, idx):
-        cond = self.conditions_sample[idx]
+        cond = self.conditions[idx]
         cond_set = cond.split(',')
         condition_string = ''
         for m in range(len(cond_set)):
@@ -61,11 +53,11 @@ class e2eDataset(Dataset):
             
             condition_string += '<' + cond_set[m][:pos] + '>' + cond_set[m][pos+1:-1] + ' '
         
-        sen = self.sentences_sample[idx]
+        sen = self.sentences[idx]
         input_string = condition_string + '<START>' + sen
         input_ids = torch.tensor(self.tokenizer.encode(input_string, add_special_tokens=True))
         
-        label_string = sen + ' <|endoftext|>'
+        label_string = sen + '<|endoftext|>'
         label_ids = torch.tensor(self.tokenizer.encode(label_string, add_special_tokens=True))
 
         return input_ids, label_ids
@@ -76,7 +68,7 @@ def main():
     dataloader = DataLoader(e2e_dataset, batch_size=1, shuffle=True, num_workers=4)    
 
     # Parameters:
-    epoch = 10
+    epoch = 8
     lr = 2e-5 # 2e-5
     max_grad_norm = 10
     num_training_steps = len(e2e_dataset)*epoch
@@ -112,7 +104,8 @@ def main():
 
 
 def save_model(iteration):
-    save_path = 'gen_model/base3_sample_30/'+str(iteration)+'/'
+    save_path = 'gen_model/repro/try_1/'+str(iteration)+'/'
+#     save_path = 'gen_model/random_init/'+str(iteration)+'/'
     if not os.path.exists(save_path):
         os.makedirs(save_path)
     torch.save(my_model.state_dict(), save_path+'model')

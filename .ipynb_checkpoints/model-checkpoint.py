@@ -36,14 +36,21 @@ class mymodel(nn.Module):
 #         print(condition_token)                            
         
         model_class, tokenizer_class, pretrained_weights = (GPT2Model, GPT2Tokenizer, 'gpt2')
+#         model_class, tokenizer_class, pretrained_weights = (GPT2Model, GPT2Tokenizer, '/data/private/GPT/openai-gpt2/base/')        
         self.tokenizer = tokenizer_class.from_pretrained(pretrained_weights)
 
         special_tokens = {'bos_token': '<START>', 'additional_special_tokens': condition_token}
         self.tokenizer.add_special_tokens(special_tokens)
-        self.bert_model = model_class.from_pretrained(pretrained_weights)
-        self.bert_model.resize_token_embeddings(len(self.tokenizer))
-
         
+        # pretrained model
+        self.bert_model = model_class.from_pretrained(pretrained_weights)      
+        
+        # random model
+#         configuration = GPT2Config()
+#         self.bert_model = GPT2Model(configuration)
+        
+        
+        self.bert_model.resize_token_embeddings(len(self.tokenizer))       
         self.emb_dim = 768
         self.vocab_num = len(self.tokenizer)
         
