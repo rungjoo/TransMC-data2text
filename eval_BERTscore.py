@@ -1,6 +1,6 @@
 ### BERT score with human reference
 from bert_score import BERTScorer
-scorer = BERTScorer(lang="en",  rescale_with_baseline=True)
+scorer = BERTScorer(lang="en",  rescale_with_baseline=False)
 
 from bert_score import score
 import glob
@@ -25,9 +25,9 @@ for i in range(len(human_references)):
     for k in range(len(human_references[i])):
         human_compare.append(human_references[i][k])
 
-# output_path = "/project/work/E2E/predictions/joosung2/testset/base1_sample30/*"
-# output_path = "/project/work/E2E/predictions/final/*"
-output_path = "/data/private/E2E/predictions/no_pretrained/try_2/*"
+# output_path = "/data/private/E2E/predictions/final/*"
+# output_path = "/data/private/E2E/predictions/reproduce/try_2/*"
+output_path = "/data/private/E2E/predictions/no_pretrained/try_1/*"
 pred_files = glob.glob(output_path)
 # pred_files = ["/project/work/E2E/predictions/final/sampling30_1.txt"]
 
@@ -54,4 +54,5 @@ for i in range(len(pred_files)):
     score_list.append(BERT_score)    
     
 for i in range(len(pred_files)):
-    print(pred_files[i], ": ", score_list[i])
+    print(pred_files[i])
+    print(score_list[i])

@@ -1,5 +1,3 @@
-
-
 # -*- coding: utf-8 -*-
 from tqdm import tqdm
 import os
@@ -104,7 +102,7 @@ def main():
 
 
 def save_model(iteration):
-    save_path = 'gen_model/random_init/try_2/'+str(iteration)+'/'
+    save_path = 'gen_model/random_init/try_1/'+str(iteration)+'/'
 #     save_path = 'gen_model/random_init/'+str(iteration)+'/'
     if not os.path.exists(save_path):
         os.makedirs(save_path)

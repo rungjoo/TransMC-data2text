@@ -45,25 +45,29 @@ class e2eDataset(Dataset):
 
     
 # from model_large import *
-from model import *
+# from model import *
+from model2 import *
 from tqdm import tqdm
 import time
 import nltk
 import os
-nltk.download('punkt')
-from nltk import word_tokenize
-from nltk.translate.bleu_score import sentence_bleu
+# nltk.download('punkt')
+# from nltk import word_tokenize
+# from nltk.translate.bleu_score import sentence_bleu
 max_len = 70
 
 my_model = mymodel().cuda()
 my_model.eval()
 
 for i in range(1, 9):
-    model_name = './gen_model/repro/try_1/'+str(i)+'/model'
-    save_path = './predictions/reproduce/try_1'
+#     model_name = './gen_model/repro/try_2/'+str(i)+'/model'
+#     save_path = './predictions/reproduce/try_2'
 
-#     model_name = './gen_model/random_init/try_3/'+str(i)+'/model'
-#     save_path = './predictions/no_pretrained/try_3'    
+#     model_name = './gen_model/random_init/try_1/'+str(i)+'/model'
+#     save_path = './predictions/no_pretrained/try_1'
+    
+    model_name = './gen_model/new/try_3/'+str(i)+'/model'
+    save_path = './predictions/new/try_3'
     
     my_model.load_state_dict(torch.load(model_name))
     print('ok') 
@@ -111,10 +115,10 @@ for i in range(1, 9):
         input_ids = input_ids_list[k]
         input_len = len(input_ids)
 
-        ori_tokens = []
-        for m in range(len(ref_sentences[k])):
+#         ori_tokens = []
+#         for m in range(len(ref_sentences[k])):
 #             f_dev.write(ref_sentences[k][m]+'\n')
-            ori_tokens.append(word_tokenize(ref_sentences[k][m]))
+#             ori_tokens.append(word_tokenize(ref_sentences[k][m]))
 #         if k < len(ref_sentences)-1:
 #             f_dev.write('\n')
 
@@ -128,20 +132,20 @@ for i in range(1, 9):
         out_sen = my_model.tokenizer.decode(input_ids[input_len:])
         f_pred.write(out_sen+'\n')
 
-        out_tokens = word_tokenize(out_sen)
+#         out_tokens = word_tokenize(out_sen)
 
-        bleu_1_score = sentence_bleu(ori_tokens, out_tokens, weights=(1, 0, 0, 0))
-        bleu_2_score = sentence_bleu(ori_tokens, out_tokens, weights=(0.5, 0.5, 0, 0))
-        bleu_3_score = sentence_bleu(ori_tokens, out_tokens, weights=(0.33, 0.33, 0.33, 0))
-        bleu_4_score = sentence_bleu(ori_tokens, out_tokens, weights=(0.25, 0.25, 0.25, 0.25))
+#         bleu_1_score = sentence_bleu(ori_tokens, out_tokens, weights=(1, 0, 0, 0))
+#         bleu_2_score = sentence_bleu(ori_tokens, out_tokens, weights=(0.5, 0.5, 0, 0))
+#         bleu_3_score = sentence_bleu(ori_tokens, out_tokens, weights=(0.33, 0.33, 0.33, 0))
+#         bleu_4_score = sentence_bleu(ori_tokens, out_tokens, weights=(0.25, 0.25, 0.25, 0.25))
 
-        bleu_1 += bleu_1_score
+#         bleu_1 += bleu_1_score
 
-        bleu_score += min(1, len(out_tokens)/len(ori_tokens))*((bleu_1_score*bleu_2_score*bleu_3_score*bleu_4_score)**(0.25))    
+#         bleu_score += min(1, len(out_tokens)/len(ori_tokens))*((bleu_1_score*bleu_2_score*bleu_3_score*bleu_4_score)**(0.25))    
 
 #     f_dev.close()
     f_pred.close()
     
     print(i, "th model")
-    print("BLEU score: {}".format(bleu_score/len(ref_sentences)*100))
-    print("BLEU1 score: {}".format(bleu_1/len(ref_sentences)*100))    
+#     print("BLEU score: {}".format(bleu_score/len(ref_sentences)*100))
+#     print("BLEU1 score: {}".format(bleu_1/len(ref_sentences)*100))    
