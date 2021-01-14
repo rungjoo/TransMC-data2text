@@ -30,13 +30,10 @@ class mymodel(nn.Module):
         v_num = 0
         for k, v in typ_list.items():
             v_num += len(v)
-            condition_token.append('<'+k+'>')
-#             print(k, len(v))
-#         print(len(typ_list.keys()), v_num)
-#         print(condition_token)                            
+            condition_token.append('<'+k+'>')                        
         
-        model_class, tokenizer_class, pretrained_weights = (GPT2Model, GPT2Tokenizer, 'gpt2')
-#         model_class, tokenizer_class, pretrained_weights = (GPT2Model, GPT2Tokenizer, '/data/private/GPT/openai-gpt2/base/')        
+        # model_class, tokenizer_class, pretrained_weights = (GPT2Model, GPT2Tokenizer, 'gpt2')
+        model_class, tokenizer_class, pretrained_weights = (GPT2LMHeadModel, GPT2Tokenizer, '/data/private/GPT/openai-gpt2/base/')        
         self.tokenizer = tokenizer_class.from_pretrained(pretrained_weights)
 
         special_tokens = {'bos_token': '<START>', 'additional_special_tokens': condition_token}
@@ -51,18 +48,10 @@ class mymodel(nn.Module):
         
         
         self.bert_model.resize_token_embeddings(len(self.tokenizer))       
-        self.emb_dim = 768
-        self.vocab_num = len(self.tokenizer)
-        
-        self.matrix = nn.Linear(self.emb_dim, self.vocab_num)
-        
-#         self.model_params = list(self.matrix.parameters())
-        
 
     """Modeling"""
     def model_feeding(self, input_ids):
-        output_vector = self.bert_model(input_ids)[0]
-        voacb_logit = self.matrix(output_vector)
+        voacb_logit = self.bert_model(input_ids)[0] # (batch, length, voacb_size)
         
         return voacb_logit
         

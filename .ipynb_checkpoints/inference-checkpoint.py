@@ -45,8 +45,7 @@ class e2eDataset(Dataset):
 
     
 # from model_large import *
-# from model import *
-from model2 import *
+from model import *
 from tqdm import tqdm
 import time
 import nltk

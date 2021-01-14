@@ -4,8 +4,7 @@ import os
 import random
 import torch
 
-# from model import *
-from model2 import *
+from model import *
 my_model = mymodel().cuda()
 my_model.train()
 print('ok')
