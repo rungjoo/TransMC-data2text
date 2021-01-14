@@ -1,0 +1,9 @@
+/data/private/E2E/e2e-metrics/measure_scores.py /data/private/WebNLG-models/prediction/challenge/reference.txt /data/private/WebNLG-models/prediction/challenge/compare/BIU_Chimera_v1.txt
+
+/data/private/E2E/e2e-metrics/measure_scores.py /data/private/WebNLG-models/prediction/v2/reference.txt /data/private/WebNLG-models/prediction/v2/prediction_5.txt
+
+/data/private/E2E/e2e-metrics/measure_scores.py /data/private/WebNLG-models/prediction/enter_reference.txt /data/private/WebNLG-models/prediction/modify_prediction_1.txt
+
+nlg-eval --hypothesis=/data/private/WebNLG-models/prediction/prediction_1.txt --references=/data/private/WebNLG-models/prediction/reference.txt
+
+nlg-eval --hypothesis=/data/private/WebNLG-models/ppp.txt --references=/data/private/WebNLG-models/ttt.txt
