@@ -13,12 +13,12 @@
 3. [BERTScore](https://pypi.org/project/bert-score/)
 
 ## Train
-<h5> For All dataset </h5>
+For All dataset
 ```bash
 python3 train.py
 ```
 
-<h5> For sampling dataset </h5>
+For sampling dataset
 ```bash
 python3 train_sampling.py
 ```
