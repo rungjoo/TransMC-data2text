@@ -1,5 +1,0 @@
-https://github.com/tuetschek/e2e-metrics
-
-./measure_scores.py /data/private/E2E/dataset/f_test.txt /data/private/E2E/predictions/no_pretrained/try_1/f_pred_1.txt
-
-./measure_scores.py ./dataset/f_test.txt ./dataset/f_pred_1.txt
