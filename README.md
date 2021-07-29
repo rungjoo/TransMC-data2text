@@ -1,5 +1,5 @@
 # Transforming Multi-Conditioned Generation from Meaning Representation
-- https://arxiv.org/pdf/2101.04257.pdf
+- https://arxiv.org/pdf/2101.04257.pdf (RANLP 2021)
 
 ## Requirements
 1. Pytorch 1.2+
