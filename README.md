@@ -37,4 +37,18 @@ For BERT score, edit the prediction file in the eval_BERTscore.py and
 python3 eval_BERTscore.py
 ```
 
+## Citation
 
+```bibtex
+@inproceedings{lee-2021-transforming,
+    title = "Transforming Multi-Conditioned Generation from Meaning Representation",
+    author = "Lee, Joosung",
+    booktitle = "Proceedings of the International Conference on Recent Advances in Natural Language Processing (RANLP 2021)",
+    month = sep,
+    year = "2021",
+    address = "Held Online",
+    publisher = "INCOMA Ltd.",
+    url = "https://aclanthology.org/2021.ranlp-1.92",
+    pages = "805--813"
+}
+```
